@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Gaji Karyawan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kalkulator Gaji Karyawan</h2>
+        <form id="salaryForm">
+            <p>
+                <label for="nama">Nama Karyawan</label><br>
+                <input type="text" id="nama" required>
+            </p>
+            <p>
+                <label for="gajiPokok">Gaji Pokok</label><br>
+                <input type="number" id="gajiPokok" required>
+            </p>
+            <button type="button" onclick="hitungGaji()">Hitung Gaji</button>
+        </form>
+
+        <div id="hasil" class="result" style="display: none;">
+            <h3>Hasil Perhitungan</h3>
+            <p>Nama Karyawan: <span id="hasilNama"></span></p>
+            <p>Tunjangan (20%): Rp <span id="hasilTunjangan"></span></p>
+            <p>Pajak (15%): Rp <span id="hasilPajak"></span></p>
+            <p>Gaji Bersih: Rp <span id="hasilGajiBersih"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function hitungGaji() {
+            const nama = document.getElementById('nama').value;
+            const gajiPokok = parseFloat(document.getElementById('gajiPokok').value);
+
+            if (nama && gajiPokok) {
+                //Hitung tunjangan (20% dari gaji pokok)
+                const tunjangan = gajiPokok * 0.2;
+
+                //Hitung pajak (15% dari gaji pokok + tunjangan)
+                const pajak = (gajiPokok + tunjangan) * 0.15;
+
+                //Hitung gaji bersih
+                const gajiBersih = gajiPokok + tunjangan - pajak;
+
+                //Tampilkan hasil
+                document.getElementById('hasil').style.display = 'block';
+                document.getElementById('hasilNama').textContent = nama;
+                document.getElementById('hasilTunjangan').textContent = tunjangan.toLocaleString();
+                document.getElementById('hasilPajak').textContent = pajak.toLocaleString();
+                document.getElementById('hasilGajiBersih').textContent = gajiBersih.toLocaleString();
+            } else {
+                alert('Mohon isi semua data dengan benar!');
+            }
+        }
+    </script>
+</body>
+</html>
